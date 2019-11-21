@@ -35,23 +35,29 @@ class Main{
           literals = Integer.parseInt(s);
           FormulaGenerator fg = new FormulaGenerator();
           clauses = fg.allClauses(literals);
+        } catch (NumberFormatException e){
+          // Input is a String-formula
+          FormulaGenerator fg = new FormulaGenerator();
+          clauses = fg.fromString(s);
         } catch (Exception e){
           e.printStackTrace();
         }
       }
     }
-    System.out.println("Number of clauses: " + clauses.length);
-    solveClauseSet(clauses, literals);
-    int[] satisfiable = Arrays.copyOf(clauses, clauses.length-1);
-    System.out.println("Number of clauses: " + satisfiable.length + " (last clause removed, best-case)");
-    solveClauseSet(satisfiable, literals);
-    System.out.println("Number of clauses: " + satisfiable.length + " (first clause removed, worst-case)");
-    satisfiable = Arrays.copyOfRange(clauses, 1, clauses.length);
-    solveClauseSet(satisfiable, literals);
-    System.out.println("Number of clauses: " + satisfiable.length + " (random clause removed)");
-    int randomNum = ThreadLocalRandom.current().nextInt(0, clauses.length);
-    satisfiable = concatArrays(Arrays.copyOf(clauses, randomNum-1), Arrays.copyOfRange(clauses, randomNum, clauses.length));
-    solveClauseSet(satisfiable, literals);
+    if (clauses.length > 0){
+      System.out.println("Number of clauses: " + clauses.length);
+      solveClauseSet(clauses, literals);
+      int[] satisfiable = Arrays.copyOf(clauses, clauses.length-1);
+      System.out.println("Number of clauses: " + satisfiable.length + " (last clause removed, best-case)");
+      solveClauseSet(satisfiable, literals);
+      System.out.println("Number of clauses: " + satisfiable.length + " (first clause removed, worst-case)");
+      satisfiable = Arrays.copyOfRange(clauses, 1, clauses.length);
+      solveClauseSet(satisfiable, literals);
+      System.out.println("Number of clauses: " + satisfiable.length + " (random clause removed)");
+      int randomNum = ThreadLocalRandom.current().nextInt(0, clauses.length);
+      satisfiable = concatArrays(Arrays.copyOf(clauses, randomNum-1), Arrays.copyOfRange(clauses, randomNum, clauses.length));
+      solveClauseSet(satisfiable, literals);
+    }
     clauses = null;
   }
 
