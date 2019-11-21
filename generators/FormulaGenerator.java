@@ -2,13 +2,60 @@ package generators;
 
 import java.lang.IndexOutOfBoundsException;
 import java.lang.OutOfMemoryError;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FormulaGenerator{
+
+  private final String AND = " and ";
+  private final String OR = " or ";
+  private final char NOT = '-';
 
   public FormulaGenerator(){
 
   }
 
+  /**
+  * Generates an array of bitvectors representing the supplied string formula.
+  * The formula is implied to be in CNF.
+  *
+  * @param formula The string representation of a CNF formula.
+  * @return int[] Array of bitvectors representing a CNF formula.
+  */
+  public int[] fromString(String formula){
+    // Split the formula into String clauses
+    String[] stringClauses = formula.split(AND);
+
+    // Loop through each clause and to array
+    List<Integer> intClauses = new ArrayList<>();
+    List<String> stringLiterals = new ArrayList<>();
+    for (String s : stringClauses){
+      int clause = 0;
+      String[] literals = s.split(OR);
+      for (String literal : literals){
+        System.out.print("\n" + l);
+        // Check if literal has been seen before
+        // If literal has not been seen before,
+        // add it to the list and retreieve its index.
+        int check = stringLiterals.indexOf(l);
+        if (check < 0){
+          stringLiterals.add(l);
+          check = stringLiterals.indexOf(l);
+        }
+        System.out.print(" " + check + "\n");
+        if (literal.charAt(0) == NOT){
+          continue;
+        }
+        clause += (1 << check);
+      }
+      intClauses.add(clause);
+    }
+    // TODO: return intClauses as int[]
+    System.out.println(intClauses);
+    return new int[0];
+  }
 
   /**
   * Generates the maximum number of clauses from a given number of distinct literals.
