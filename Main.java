@@ -52,14 +52,21 @@ class Main{
   private static void checkFormula(int[] clauses, int literals, boolean full){
 
     if (clauses != null && clauses.length > 0 && literals > 0 && full){
+      // Solve clause-set
       System.out.println("\nNumber of clauses: " + clauses.length);
       solveClauseSet(clauses, literals);
+
+      // Remove last clause and check satisfiability
       int[] satisfiable = Arrays.copyOf(clauses, clauses.length-1);
       System.out.println("\nNumber of clauses: " + satisfiable.length + " (last clause removed, best-case)");
       solveClauseSet(satisfiable, literals);
+
+      // Remove first clause and check satisfiability
       System.out.println("\nNumber of clauses: " + satisfiable.length + " (first clause removed, worst-case)");
       satisfiable = Arrays.copyOfRange(clauses, 1, clauses.length);
       solveClauseSet(satisfiable, literals);
+
+      // Remove random clause and check satisfiability
       System.out.println("\nNumber of clauses: " + satisfiable.length + " (random clause removed)");
       int randomNum = ThreadLocalRandom.current().nextInt(0, clauses.length);
       satisfiable = concatArrays(Arrays.copyOf(clauses, randomNum-1), Arrays.copyOfRange(clauses, randomNum, clauses.length));
@@ -92,12 +99,16 @@ class Main{
   }
 
   private static void printUsage(){
-    System.out.println("usage:\tjava Main [<options>] <integer>");
+    System.out.println("usage:\tjava Main [<options>] [integer] [CNF-formula]");
     System.out.println("\n'java Main -help' list available options.");
   }
 
   private static void printHelp(){
-    //
+    System.out.println("Currently only Brute-Force available.\n");
+    System.out.println("'java Main <integer>' creates max clause-set with <integer> literals.");
+    System.out.println("Example: java Main 5");
+    System.out.println("'java Main <CNF-formula>' checks satisfiability of CNF-formula represented as a String");
+    System.out.println("Example: java Main \"(A or B) and (A or -B) and (-A or B)\"");
   }
 
   /**
