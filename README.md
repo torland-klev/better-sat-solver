@@ -4,7 +4,7 @@ Checks whether a given well-formed formula of Propositional Logic in Clausal Nor
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
@@ -13,8 +13,8 @@ See deployment for notes on how to deploy the project on a live system.
 
 ### Compile and Run
 * Clone project into your own folder.
-* Compile with <b>javac main\Main.java </b>
-* Run using <b>java main\Main</b> and follow instructions.
+* Compile with <b>javac Main.java </b>
+* Run using <b>java Main</b> and follow instructions.
 
 ## Features
 * Create maximum invalid clause-set, given a number of literals.
@@ -47,4 +47,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* [M. Giese](https://www.mn.uio.no/ifi/personer/vit/martingi/index.html) for teaching me Propositional Logic. 
+* [M. Giese](https://www.mn.uio.no/ifi/personer/vit/martingi/index.html) for teaching me Propositional Logic.
