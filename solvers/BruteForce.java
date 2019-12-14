@@ -18,7 +18,7 @@ public class BruteForce extends Solver {
         // Check if clause satisfies interpretation
         // An interpretation falsifies a clause iff
         // the interpretation is a complement of the clause.
-        // Therefore, if the negation the interpretation
+        // Therefore, if the negation of the interpretation
         // is equal to the clause, the interpretation
         // falsifies the clause.
         int negation = ~interpretation;
@@ -27,8 +27,7 @@ public class BruteForce extends Solver {
         // bits at a higher index than literal. Do this by bitmasking.
         int mask = (1 << literals) - 1;
         negation &= mask;
-
-        //System.out.println("Negated interpretation: "+ negation + " Clause: " + clause);
+        System.out.println("Interpretation: " + interpretation + " Mask: " + mask + " Negated interpretation: "+ negation + " Clause: " + clause);
 
 
         if (negation != clause){
