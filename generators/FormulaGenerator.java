@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class FormulaGenerator{
 
@@ -21,20 +22,32 @@ public class FormulaGenerator{
   * Generates an array of bitvectors representing the supplied string formula.
   * The formula is implied to be in CNF.
   *
+  * TODO:
+  *  Need a way to represent that a literal is not in the clause
+  * .Currently, "A and B" is read as "(A or -B) and (B or -A)". That is,
+  *  That is, all clauses must have all literals.
+  *
   * @param formula The string representation of a CNF formula.
   * @return int[] Array of bitvectors representing a CNF formula.
   */
   public int[] fromString(String formula){
     // Split the formula into String clauses
     String[] stringClauses = formula.split(AND);
-
-    // Loop through each clause and to array
+    // Loop through each clause and add to array
     List<Integer> intClauses = new ArrayList<>();
     List<String> stringLiterals = new ArrayList<>();
     for (String s : stringClauses){
       int clause = 0;
+      // Iterate through all literals of the clause.
       String[] literals = s.split(OR);
       for (String literal : literals){
+        literal = literal.replace("(", "");
+        literal = literal.replace(")", "");
+        boolean negated = false;
+        if (literal.charAt(0) == NOT){
+        literal = literal.replace("-", "");
+          negated = true;
+        }
         System.out.print("\n" + literal);
         // Check if literal has been seen before
         // If literal has not been seen before,
@@ -45,16 +58,18 @@ public class FormulaGenerator{
           check = stringLiterals.indexOf(literal);
         }
         System.out.print(" " + check + "\n");
-        if (literal.charAt(0) == NOT){
+        if (negated){
           continue;
         }
+        // Increase the value of the clause depending on the index of the literal.
+        // If the literal has given index 3, the clause will have 8 added to it.
+        // This corresponds to setting the bit in the 3rd position.
         clause += (1 << check);
       }
       intClauses.add(clause);
     }
-    // TODO: return intClauses as int[]
     System.out.println(intClauses);
-    return new int[0];
+    return convertList(intClauses);
   }
 
   /**
@@ -89,6 +104,38 @@ public class FormulaGenerator{
     }
 
     return clauses;
+  }
+
+  private int[] convertList(List<Integer> ints){
+    int[] ret = new int[ints.size()];
+    Iterator<Integer> iter = ints.iterator();
+    for (int i = 0; i < ret.length; i++){
+        ret[i] = iter.next().intValue();
+    }
+    return ret;
+  }
+
+  public List<String> literals(String formula){
+    String[] stringClauses = formula.split(AND);
+    List<String> stringLiterals = new ArrayList<>();
+    for (String s : stringClauses){
+      // Iterate through all literals of the clause.
+      String[] literals = s.split(OR);
+      for (String literal : literals){
+        literal = literal.replace("(", "");
+        literal = literal.replace(")", "");
+        literal = literal.replace("-", "");
+        // Check if literal has been seen before
+        // If literal has not been seen before,
+        // add it to the list and retreieve its index.
+        int check = stringLiterals.indexOf(literal);
+        if (check < 0){
+          stringLiterals.add(literal);
+          check = stringLiterals.indexOf(literal);
+        }
+      }
+    }
+    return stringLiterals;
   }
 
 }
