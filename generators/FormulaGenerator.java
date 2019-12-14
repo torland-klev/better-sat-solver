@@ -35,14 +35,14 @@ public class FormulaGenerator{
       int clause = 0;
       String[] literals = s.split(OR);
       for (String literal : literals){
-        System.out.print("\n" + l);
+        System.out.print("\n" + literal);
         // Check if literal has been seen before
         // If literal has not been seen before,
         // add it to the list and retreieve its index.
-        int check = stringLiterals.indexOf(l);
+        int check = stringLiterals.indexOf(literal);
         if (check < 0){
-          stringLiterals.add(l);
-          check = stringLiterals.indexOf(l);
+          stringLiterals.add(literal);
+          check = stringLiterals.indexOf(literal);
         }
         System.out.print(" " + check + "\n");
         if (literal.charAt(0) == NOT){
