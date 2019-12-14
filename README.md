@@ -25,9 +25,10 @@ See deployment for notes on how to deploy the project on a live system.
 ## TODO
 * Check if a formula is in CNF.
 * Convert an arbitrary propositional formula to CNF.
-* Add a better algorithm for satisfiability checking (e.g., CDCL).
+* Add a better algorithm for satisfiability checking (e.g. CDCL).
 * Add support for Modal operators.
 * Add support for First-Order quantifiers.
+* Extend size of maximal clause set.
 
 ## Built With
 
