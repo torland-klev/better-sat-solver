@@ -20,9 +20,12 @@ See deployment for notes on how to deploy the project on a live system.
 * Create maximum invalid clause-set, given a number of literals.
 * Create maximum satisfiable clause-set, given a number of literals.
 * Create clause-set given a String-representation of a propositional formula in CNF.
+  * String-representation has to have every literal in every clause.
+    * "A and B" has to be written "(A or -B) and (-A or B) and (A or B)".
 * Brute-force a satisfiable interpretation (if one exist) for a given clause-set.
 
 ## TODO
+* Remove requirement that string-representation has to have every literal in every clause.
 * Check if a formula is in CNF.
 * Convert an arbitrary propositional formula to CNF.
 * Add a better algorithm for satisfiability checking (e.g. CDCL).
