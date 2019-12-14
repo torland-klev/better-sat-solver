@@ -33,30 +33,43 @@ class Main{
           literals = Integer.parseInt(s);
           FormulaGenerator fg = new FormulaGenerator();
           clauses = fg.allClauses(literals);
+          checkFormula(clauses, literals, true);
         } catch (NumberFormatException e){
           // Input is a String-formula
           FormulaGenerator fg = new FormulaGenerator();
+          literals = fg.literals(s).size();
           clauses = fg.fromString(s);
+          checkFormula(clauses, literals, false);
         } catch (Exception e){
           e.printStackTrace();
         }
       }
     }
-    if (clauses.length > 0){
-      System.out.println("Number of clauses: " + clauses.length);
+
+    clauses = null;
+  }
+
+  private static void checkFormula(int[] clauses, int literals, boolean full){
+
+    if (clauses != null && clauses.length > 0 && literals > 0 && full){
+      System.out.println("\nNumber of clauses: " + clauses.length);
       solveClauseSet(clauses, literals);
       int[] satisfiable = Arrays.copyOf(clauses, clauses.length-1);
-      System.out.println("Number of clauses: " + satisfiable.length + " (last clause removed, best-case)");
+      System.out.println("\nNumber of clauses: " + satisfiable.length + " (last clause removed, best-case)");
       solveClauseSet(satisfiable, literals);
-      System.out.println("Number of clauses: " + satisfiable.length + " (first clause removed, worst-case)");
+      System.out.println("\nNumber of clauses: " + satisfiable.length + " (first clause removed, worst-case)");
       satisfiable = Arrays.copyOfRange(clauses, 1, clauses.length);
       solveClauseSet(satisfiable, literals);
-      System.out.println("Number of clauses: " + satisfiable.length + " (random clause removed)");
+      System.out.println("\nNumber of clauses: " + satisfiable.length + " (random clause removed)");
       int randomNum = ThreadLocalRandom.current().nextInt(0, clauses.length);
       satisfiable = concatArrays(Arrays.copyOf(clauses, randomNum-1), Arrays.copyOfRange(clauses, randomNum, clauses.length));
       solveClauseSet(satisfiable, literals);
     }
-    clauses = null;
+
+    if(clauses != null && clauses.length > 0 && literals > 0){
+      System.out.println("\nNumber of clauses: " + clauses.length + ", number of literals: " + literals);
+      solveClauseSet(clauses, literals);
+    }
   }
 
   private static void solveClauseSet(int[] clauseSet, int literals){
@@ -84,7 +97,7 @@ class Main{
   }
 
   private static void printHelp(){
-    //TODO
+    //
   }
 
   /**
