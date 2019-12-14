@@ -27,7 +27,7 @@ public class BruteForce extends Solver {
         // bits at a higher index than literal. Do this by bitmasking.
         int mask = (1 << literals) - 1;
         negation &= mask;
-        System.out.println("Interpretation: " + interpretation + " Mask: " + mask + " Negated interpretation: "+ negation + " Clause: " + clause);
+        //System.out.println("Interpretation: " + interpretation + " Mask: " + mask + " Negated interpretation: "+ negation + " Clause: " + clause);
 
 
         if (negation != clause){
