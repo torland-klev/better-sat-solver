@@ -1,7 +1,7 @@
 
 package solvers;
 
-public class BruteForce extends Solver {
+public class BruteForce implements Solver {
 
   public BruteForce(){
 
