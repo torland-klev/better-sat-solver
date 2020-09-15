@@ -51,6 +51,8 @@ class Main{
 
   private static void checkFormula(int[] clauses, int literals, boolean full){
 
+    if (literals >= 20) System.out.println("Warning: selected number of literals is " + literals + "; this might take very long.");
+
     if (clauses != null && clauses.length > 0 && literals > 0 && full){
       // Solve clause-set
       System.out.println("\nNumber of clauses: " + clauses.length);
@@ -67,13 +69,12 @@ class Main{
       solveClauseSet(satisfiable, literals);
 
       // Remove random clause and check satisfiability
-      System.out.println("\nNumber of clauses: " + satisfiable.length + " (random clause removed)");
-      int randomNum = ThreadLocalRandom.current().nextInt(0, clauses.length);
+      int randomNum = ThreadLocalRandom.current().nextInt(1, clauses.length);
+      System.out.println("\nNumber of clauses: " + satisfiable.length + " (random clause removed, clause " + randomNum + ").");
       satisfiable = concatArrays(Arrays.copyOf(clauses, randomNum-1), Arrays.copyOfRange(clauses, randomNum, clauses.length));
       solveClauseSet(satisfiable, literals);
     }
-
-    if(clauses != null && clauses.length > 0 && literals > 0){
+    else if(clauses != null && clauses.length > 0 && literals > 0){
       System.out.println("\nNumber of clauses: " + clauses.length + ", number of literals: " + literals);
       solveClauseSet(clauses, literals);
     }
