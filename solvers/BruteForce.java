@@ -10,7 +10,7 @@ public class BruteForce extends Solver {
   public int solve(int[] clauseSet, int literals){
     int interpretation = 0;
     boolean error = false;
-    // Have to check at most 2^literals (i.e. i << literals) interpretations
+    // Have to check at most 2^literals (i.e. 1 << literals) interpretations
     while (interpretation < (1 << literals)){
       // For each interpretation we must check if all clauses is satisfied
       error = false;
