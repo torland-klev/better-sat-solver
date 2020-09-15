@@ -23,8 +23,8 @@ public class FormulaGenerator{
   * The formula is implied to be in CNF.
   *
   * TODO:
-  *  Need a way to represent that a literal is not in the clause
-  * .Currently, "A and B" is read as "(A or -B) and (B or -A)". That is,
+  *  Need a way to represent that a literal is not in the clause.
+  *  Currently, "A and B" is read as "(A or -B) and (B or -A)".
   *  That is, all clauses must have all literals.
   *
   * @param formula The string representation of a CNF formula.
@@ -75,7 +75,7 @@ public class FormulaGenerator{
   /**
   * Generates the maximum number of clauses from a given number of distinct literals.
   * Due to JVM Heap and "max array size"-concerns, the greatest amount of
-  * clauses this method is able to generate is 2^28 (i.e. 28 literals).
+  * clauses this method is able to generate is 2^32-1 (i.e. 31 literals).
   * A clause is represented as an integer, where each integer should be seen
   * as a bit-vector.
   * The clause-set is in clausal normal form (CNF).
@@ -85,7 +85,10 @@ public class FormulaGenerator{
   */
   public int[] allClauses(int literals){
     int[] clauses = null;
-    if (literals < 0 || literals >= 31){
+    if (literals < 0){
+      throw new IndexOutOfBoundsException("Number of clauses cannot be negative.");
+    }
+    if (literals >= 31){
       throw new IndexOutOfBoundsException("Too many literals. Maximum number of literals is 30.");
     }
 
